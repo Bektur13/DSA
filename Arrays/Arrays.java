@@ -98,6 +98,4 @@ public class Arrays {
                 return prefix[right] - prefix[left - 1];
             }
         }
-
-        // 
 }
