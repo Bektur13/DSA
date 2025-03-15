@@ -42,5 +42,32 @@ public class Week19 {
             System.out.prinln(n + "" + from + "" + to);
             hanoi(n - 1, aux, to);
         }
+
+        // Chips
+        private void put(int n) {
+            if(n == 1) {
+                System.out.println("1 ");
+                return;
+            }
+            put(n - 1);
+            System.out.println(" ");
+            remove(n - 1);
+        }
+        private void remove(int n) {
+            if(n == 1) {
+                System.out.println("-1 ");
+                return;
+            }
+            put(n - 1);
+            System.out.println(" ");
+            remove(n - 1);
+        }
+
+        // Permutations
+        class Solution {
+            public List<List<Integer>> permute(int[] nums) {
+
+            }
+        }
     }
 }
