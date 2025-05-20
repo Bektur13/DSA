@@ -98,4 +98,15 @@ public class Arrays {
                 return prefix[right] - prefix[left - 1];
             }
         }
+
+        // CONTAINS DUPLICATE
+            public boolean containsDuplicate(int[] nums) {
+                if(nums.length <= 1) return false;
+                HashSet<Integer> result = new HashSet<>();
+                for(int n : nums) {
+                    if(result.contains(n)) return true;
+                    result.add(n);
+                }
+                return false;
+            }
 }
