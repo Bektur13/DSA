@@ -43,5 +43,19 @@ public class Heap {
 
             return q.poll();
         }
+
+        // Kth LARGEST ELEMENT IN ARRAY
+        public int findKthLargest(int[] nums, int k) {
+            PriorityQueue<Integer> q = new PriorityQueue<>(Collections.reverseOrder());
+            for(int num : nums) {
+                q.offer(num);
+            }
+
+            while(k != 1) {
+                q.poll();
+                k--;
+            }
+            return q.poll();
+        }
     }
 }
