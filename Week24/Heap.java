@@ -58,7 +58,7 @@ public class Heap {
             return q.poll();
         }
 
-        // TIME SCHEDULER
+        // TASK SCHEDULER
         public int leastInterval(char[] tasks, int cooldown) {
             int[] taskCounts = new int[26];
             int maxFrequency = 0;
@@ -78,6 +78,53 @@ public class Heap {
             int minScheduleLength = Math.max(tasks.length, (maxFrequency - 1) * (cooldown + 1) + maxFrequencyTasks);
 
             return minScheduleLength;
+        }
+
+        // RELATIVE RANKS
+        public String[] findRelativeRanks(int[] scores) {
+            String[] result = new String[scores.length];
+
+            PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>() {
+                @Override
+                public int compare(int[] a, int[] b) {
+                    return b[0] - a[0];
+                }
+            });
+
+            for(int i = 0; i < scores.length; i++) {
+                pq.offer(new int[]{scores[i], i});
+            }
+
+            for (int rank = 1; rank <= scores.length; rank++) {
+                int[] pair = pq.poll();
+                int scoreIndex = pair[1]; // This is the original index
+
+                // Step 3: Place the rank string into the correct position in the result array
+                if (rank == 1) {
+                    result[scoreIndex] = "Gold Medal";
+                } else if (rank == 2) {
+                    result[scoreIndex] = "Silver Medal";
+                } else if (rank == 3) {
+                    result[scoreIndex] = "Bronze Medal";
+                } else {
+                    result[scoreIndex] = String.valueOf(rank);
+                }
+            }
+
+            return result;
+
+        }
+
+        // MAX PRODUCT OF TWO ELEMENTS IN AN ARRAY
+        public int maxProduct(int[] nums) {
+            PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+
+            for(int num : nums) {
+                pq.offer(num);
+            }
+
+
+            return (pq.poll() - 1) * (pq.poll() - 1);
         }
     }
 }
