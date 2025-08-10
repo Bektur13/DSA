@@ -126,5 +126,23 @@ public class Heap {
 
             return (pq.poll() - 1) * (pq.poll() - 1);
         }
+
+        // DELETE GREATEST VALUE IN EACH ROW
+        public int deleteGreatestValue(int[][] grid) {
+            int ans = 0;
+
+            for (int[] row : grid) {
+                Arrays.sort(row);
+            }
+
+            for (int j = 0; j < grid[0].length; ++j) {
+                int maxOfCurrentOperation = 0;
+                for (int i = 0; i < grid.length; ++i) {
+                    maxOfCurrentOperation = Math.max(maxOfCurrentOperation, grid[i][j]);
+                }
+                ans += maxOfCurrentOperation;
+            }
+            return ans;
+        }
     }
 }
