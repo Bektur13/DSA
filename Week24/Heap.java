@@ -260,5 +260,36 @@ public class Heap {
                 return result;
             }
         }
+
+        // EQUAL SUM ARRAYS WITH MINIMUM NUMBER OF OPERATIONS
+        public int minOperations(int[] nums1, int[] nums2) {
+            if(nums1.length > nums2.length * 6 ||  nums1.length * 6 < nums2.length) return -1;
+
+            int sum1 = 0;
+            int sum2 = 0;
+            for(int num : nums1) sum1 += num;
+            for(int num : nums2) sum2 += num;
+
+            if(sum1 > sum2) {
+                int[] temp = nums1; nums1 = nums2; nums2 = temp;
+                int tempSum = sum1; sum1 = sum2; sum2 = tempSum;
+            }
+
+            PriorityQueue<Integer> pq1 = new PriorityQueue<>();
+            PriorityQueue<Integer> pq2 = new PriorityQueue<>(Collections.reverseOrder());
+            for(int x : nums1) pq1.offer(x);
+            for(int x : nums2) pq2.offer(x);
+
+            int operations = 0;
+            for(; sum1 < sum2; operations++) {
+                if(pq2.isEmpty() || pq2.peek() - 1 < 6 - pq1.peek()) {
+                    sum1 += 6 - pq1.poll();
+                }else {
+                    sum2 -= pq2.poll() - 1;
+                }
+            }
+
+            return operations;
+        }
     }
 }
