@@ -214,5 +214,51 @@ public class Heap {
                 }
             }
         }
+
+        // TOP K FREQUENT WORDS
+        class Solution {
+            private class MyEntry {
+                public String key;
+                public int freq;
+
+                public MyEntry(String key, int freq) {
+                    this.key = key;
+                    this.freq = freq;
+                }
+            }
+            public List<String> topKFrequent(String[] words, int k) {
+
+                HashMap<String, Integer> hm = new HashMap<>();
+                for(String word : words) {
+                    if(hm.containsKey(word)) {
+                        hm.put(word, hm.get(word) + 1);
+                    }else {
+                        hm.put(word, 1);
+                    }
+                }
+
+                PriorityQueue<MyEntry> pq = new PriorityQueue<>((a, b) -> {
+                    if(a.freq != b.freq) {
+                        return a.freq - b.freq;
+                    }else {
+                        return b.key.compareTo(a.key);
+                    }
+                });
+                for(Map.Entry<String, Integer> entry : hm.entrySet()) {
+                    pq.add(new MyEntry(entry.getKey(), entry.getValue()));
+                    if(pq.size() > k) {
+                        pq.poll();
+                    }
+                }
+
+                List<String> result = new ArrayList<>();
+                while(!pq.isEmpty()) {
+                    result.add(pq.poll().key);
+                }
+
+                Collections.reverse(result);
+                return result;
+            }
+        }
     }
 }
