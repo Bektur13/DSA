@@ -144,5 +144,75 @@ public class Heap {
             }
             return ans;
         }
+
+        // DESIGN TWITTER
+        class Twitter {
+
+            private int timestamp = 0;
+            private Map<Integer, List<Tweet>> userTweets;
+            private Map<Integer, Set<Integer>> followers;
+
+            private class Tweet {
+                int tweetId;
+                int timestamp;
+
+                public Tweet(int tweetId, int timestamp) {
+                    this.tweetId = tweetId;
+                    this.timestamp = timestamp;
+                }
+            }
+
+            public Twitter() {
+                userTweets = new HashMap<>();
+                followers = new HashMap<>();
+            }
+
+            public void postTweet(int userId, int tweetId) {
+                userTweets.computeIfAbsent(userId, k -> new ArrayList<>()).add(new Tweet(tweetId, timestamp++));
+            }
+
+            public List<Integer> getNewsFeed(int userId) {
+                PriorityQueue<Tweet> pq = new PriorityQueue<>((a, b) -> a.timestamp - b.timestamp);
+
+                if(userTweets.containsKey(userId)) {
+                    for(Tweet tweet : userTweets.get(userId)) {
+                        pq.offer(tweet);
+                        if(pq.size() > 10) {
+                            pq.poll();
+                        }
+                    }
+                }
+
+                if(followers.containsKey(userId)) {
+                    for (int followeeId : followers.get(userId)) {
+                        if (userTweets.containsKey(followeeId)) {
+                            for (Tweet tweet : userTweets.get(followeeId)) {
+                                pq.offer(tweet);
+                                if (pq.size() > 10) {
+                                    pq.poll();
+                                }
+                            }
+                        }
+                    }
+                }
+
+                List<Integer> newsFeed = new LinkedList<>();
+                while(!pq.isEmpty()) {
+                    newsFeed.addFirst(pq.poll().tweetId);
+                }
+                return newsFeed;
+            }
+
+            public void follow(int followerId, int followeeId) {
+                if(followerId == followeeId) return;
+                followers.computeIfAbsent(followerId, k -> new HashSet<>()).add(followeeId);
+            }
+
+            public void unfollow(int followerId, int followeeId) {
+                if (followers.containsKey(followerId)) {
+                    followers.get(followerId).remove(followeeId);
+                }
+            }
+        }
     }
 }
