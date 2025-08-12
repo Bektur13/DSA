@@ -305,5 +305,46 @@ public class Heap {
 
             return s.size();
         }
+
+        //SORT CHARACTERS BY FREQUENCY
+        class Solution {
+            private class MyEntry {
+                public char key;
+                public int freq;
+
+                public MyEntry(char key, int freq) {
+                    this.key = key;
+                    this.freq = freq;
+                }
+            }
+
+            public String frequencySort(String s) {
+
+                HashMap<Character, Integer> hm = new HashMap<>();
+                for(char c : s.toCharArray()) {
+                    hm.put(c, hm.getOrDefault(c, 0) + 1);
+                }
+
+                PriorityQueue<MyEntry> pq = new PriorityQueue<>(new Comparator<MyEntry>() {
+                    @Override
+                    public int compare(MyEntry a, MyEntry b) {
+                        return b.freq - a.freq;
+                    }
+                });
+                for(Map.Entry<Character, Integer> entry : hm.entrySet()) {
+                    pq.add(new MyEntry(entry.getKey(), entry.getValue()));
+                }
+
+                StringBuilder resultBuilder = new StringBuilder();
+                while(!pq.isEmpty()) {
+                    MyEntry entry = pq.poll();
+                    for(int i = 0; i < entry.freq; i++) {
+                        resultBuilder.append(entry.key);
+                    }
+                }
+
+                return resultBuilder.toString();
+            }
+        }
     }
 }
