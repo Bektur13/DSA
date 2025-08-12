@@ -291,5 +291,19 @@ public class Heap {
 
             return operations;
         }
+
+        // MAKE ARRAY BY ZERO BY SUBSTRACTING EQUAL AMOUNTS
+        public int minimumOperations(int[] nums) {
+            if(nums.length <= 1 && nums[0] == 0) return 0;
+
+            Set<Integer> s = new HashSet<>();
+            for(int num : nums) {
+                if(num != 0) {
+                    s.add(num);
+                }
+            }
+
+            return s.size();
+        }
     }
 }
