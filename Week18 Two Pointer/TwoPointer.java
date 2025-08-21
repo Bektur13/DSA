@@ -61,6 +61,7 @@ class TwoPointer {
             }
             return indexAnswer;
         }
+
         // Container With Most Water
         public int maxArea(int[] height) {
             int left = 0;
@@ -82,6 +83,64 @@ class TwoPointer {
             }
 
             return answer;
+        }
+
+        // BACKSPACE STRING COMPARE
+        class Solution {
+            static int[] fun(String s, int cnt1, int i) {
+                while(i >= 0) {
+                    if(s.charAt(i) == '#') {
+                        cnt1++;
+                        i--;
+                    }else {
+                        if(cnt1 > 0) {
+                            cnt1--;
+                            i--;
+                        }else {
+                            break;
+                        }
+                    }
+                }
+                return new int[]{cnt1, i};
+            }
+            public boolean backspaceCompare(String s, String t) {
+                int n = s.length();
+                int m = t.length();
+                int i = n - 1, j = m - 1;
+                int cnt1 = 0, cnt2 = 0;
+                while(i >= 0 && j >= 0) {
+                    int[] arr = fun(s, cnt1, i);
+                    cnt1 = arr[0];
+                    i = arr[1];
+
+                    arr = fun(t,cnt2,j);
+                    cnt2 = arr[0];
+                    j = arr[1];
+
+                    if(i < 0 || j < 0) {
+                        break;
+                    }
+                    if(s.charAt(i) != t.charAt(j)) {
+                        return false;
+                    }
+                    i--;
+                    j--;
+                }
+
+                int[] arr = fun(s, cnt1, i);
+                cnt1 = arr[0];
+                i = arr[1];
+
+                arr = fun(t, cnt2, j);
+                cnt2 = arr[0];
+                j = arr[1];
+
+                if(i == -1 && j == -1) {
+                    return true;
+                }else {
+                    return false;
+                }
+            }
         }
     }
 }
