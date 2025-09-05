@@ -428,5 +428,35 @@ public class Heap {
                 return (a + 1) / (b + 1) - a / b;
             }
         }
+
+        // MINIMUM COST TO HIRE K WORKERS
+        public double mincostToHireWorkers(int[] q, int[] wage, int k) {
+            double[][] workers = new double[q.length][2];
+            for(int i = 0; i < q.length; i++) {
+                workers[i] = new double[]{
+                        wage[i] * 1.0 / q[i],
+                        q[i] * 1.0
+                };
+            }
+
+            Arrays.sort(workers, (a, b) -> Double.compare(a[0], b[0]));
+            double res = Double.MAX_VALUE;
+            double qsum = 0;
+            PriorityQueue<Double> pq = new PriorityQueue<>(Collections.reverseOrder());
+            for(double[] worker : workers) {
+                qsum += worker[1];
+                pq.add(worker[1]);
+
+                if(pq.size() > k) {
+                    qsum -= pq.poll();
+                }
+
+                if(pq.size() == k) {
+                    res = Math.min(res, qsum * worker[0]);
+                }
+            }
+
+            return res;
+        }
     }
 }
