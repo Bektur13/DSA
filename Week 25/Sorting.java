@@ -40,5 +40,47 @@ public class Sorting {
 
             return (largest * secondLargest) - (smallest * secondSmallest);
         }
+
+        //H-INDEX
+            // MY SOLUTION
+        public int hIndex(int[] citations) {
+            PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+            for(int citation : citations) {
+                maxHeap.offer(citation);
+            }
+
+            int h = 0;
+            while(!maxHeap.isEmpty()) {
+                int currentCitation = maxHeap.poll();
+                h++;
+                if(currentCitation < h) {
+                    return h - 1;
+                }
+                }
+            return h;
+        }
+            // AZRET BAIKE'S SOLUTION OPTIMIZED
+        public int hIndexOptimized(int[] citations) {
+            int n = citations.length;
+            int[] buckets = new int[n + 1];
+            for(int c : citations) {
+                if(c > n) {
+                    buckets[n]++;
+                }else {
+                    buckets[c]++;
+                }
+            }
+
+            int count = 0;
+            for(int i = n; i >= 1; i--) {
+                count += buckets[i];
+
+                if(count >= i) {
+                    return i;
+                }
+            }
+
+            return 0;
+        }
     }
 }
