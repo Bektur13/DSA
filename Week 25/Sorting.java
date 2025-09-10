@@ -82,5 +82,33 @@ public class Sorting {
 
             return 0;
         }
+
+        //SORT AN ARRAY
+            // MY SOLUTION
+        public int[] sortArray(int[] nums) {
+            PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+            for(int num : nums) {
+                minHeap.offer(num);
+            }
+
+            for(int i = 0; i < nums.length; i++) {
+                nums[i] = minHeap.poll();
+            }
+
+            return nums;
+        }
+            // AZRET BAIKE'S SOLUTION OPTIMIZED
+        public int[] sortArrayOptimized(int[] nums) {
+            PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+            for(int num : nums) {
+                minHeap.offer(num);
+            }
+
+            for(int i = 0; i < nums.length; i++) {
+                nums[i] = minHeap.poll();
+            }
+
+            return nums;
+        }
     }
 }
