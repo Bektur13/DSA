@@ -1,3 +1,11 @@
+// LEETCODE LINKED LIST EXPLORE CARD NOTES
+public class SinglyListNode {
+    int val;
+    SinglyListNode next;
+    SinglyListNode (int x), { val = x}
+}
+
+
 public class LinkedList {
     public static void main(String[] args) {
         // REVERSE LINKED LISTS
