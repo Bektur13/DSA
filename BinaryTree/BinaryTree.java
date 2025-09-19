@@ -45,6 +45,7 @@ public class BinaryTreeExample {
     }
 
     // Binary Tree Traversals
+    // 1. Depth-First Search(DFS) Implementation Recursive
     // IN-ORDER TRAVERSAL
     // In in-order traversal, the left child is visited first, followed by the node itself, and then the right child.
     // This can be visualized as Left - Root - Right.
@@ -80,6 +81,27 @@ public class BinaryTreeExample {
         System.out.println(root.val + "");
     }
 
+    // DFS Pre Order Traverse Iterative
+    public static void preOrderTraversalIterative(TreeNode root) {
+        if(root == null) return;
+
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+
+        while(!stack.isEmpty()) {
+            TreeNode currentNode = stack.pop();
+
+            if(root.right != null) {
+                stack.push(currentNode.right);
+            }
+
+            if(root.left != null) {
+                stack.push(currentNode.left);
+            }
+        }
+    }
+
+    // 2. Breadth-First Search(BFS) Traversal
     // LEVEL-ORDER TRAVERSAL
     public static void levelOrderTraversal(TreeNode root) {
         if(root == null) return;
