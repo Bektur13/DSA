@@ -124,6 +124,37 @@ public class BinaryTreeExample {
 }
 
 
+// LEETCODE PROBLEMS
+class BinaryTree {
+    public static void main(String[] args) {
+        // INVERT BINARY TREE
+        public TreeNode invertTree(TreeNode root) {
+            if(root == null) return root;
+
+            Queue<TreeNode> q = new LinkedList<>();
+            q.add(root);
+
+            while(!q.isEmpty()) {
+                TreeNode current = q.poll();
+
+                TreeNode temp = current.left;
+                current.left = current.right;
+                current.right = temp;
+
+                if(current.left != null) {
+                    q.add(current.left);
+                }
+                if(current.right != null) {
+                    q.add(current.right);
+                }
+            }
+
+            return root;
+        }
+
+    }
+}
+
 //public static void main(String[] args) {
 ////    Lowest common Ancestor in Binary Search Tree
 //    class Solution {
