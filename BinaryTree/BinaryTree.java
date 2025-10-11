@@ -125,7 +125,7 @@ public class BinaryTreeExample {
 
 
 // LEETCODE PROBLEMS
-class BinaryTree {
+class BinaryTreeProblems {
     public static void main(String[] args) {
         // INVERT BINARY TREE
         public TreeNode invertTree(TreeNode root) {
@@ -148,8 +148,14 @@ class BinaryTree {
                     q.add(current.right);
                 }
             }
-
             return root;
+        }
+
+        //MAXIMUM DEPTH OF BINARY TREE
+        public int maxDepth(TreeNode root) {
+            if(root == null) return 0;
+
+            return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
         }
 
     }
